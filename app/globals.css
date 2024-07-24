@@ -4,8 +4,18 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --purple-color: #633CFF;
+  --white-color: #FFF;
+}
+
+.custom-border {
+  border-color: var(--purple-color);
+}
+.custom-bg {
+  background-color: var(--white-color);
+}
+.focus-custom-shadow:focus {
+  box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +40,8 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+
 }
+
+
+
