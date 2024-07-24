@@ -18,6 +18,10 @@ export default function Home() {
   const router = useRouter();
   const [userSession, setUserSession] = useState(null);
   const {name, setName, Lname, setLName, emailad, setEmailad} = useContext(StateContext)
+  const [showProfile, setShowprofile] = useState<boolean>(true);
+  const [showLinks, setShowlinks] = useState<boolean>(false);
+  const [showSocial, setShowsocial] = useState<boolean>(false);
+  const [removeSocial, setremoveSocial] = useState<boolean>(true)
 
   const {
     name: contextName, 
@@ -28,24 +32,19 @@ export default function Home() {
   setEmailad: contextsetEmailad
  } = useContext(StateContext);
 
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const session = sessionStorage.getItem('user');
-  //     setUserSession(session);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const session:any = sessionStorage.getItem('user');
+      setUserSession(session);
+    }
+  }, []);
 
-  // console.log({ user, userSession });
-  // console.log({user})
+  console.log({ user, userSession });
+  console.log({user})
 
-  // if (!user && !userSession){
-  //  return  router.push('/sign-up')
-  // }
-
-  const [showProfile, setShowprofile] = useState<boolean>(true);
-  const [showLinks, setShowlinks] = useState<boolean>(false);
-  const [showSocial, setShowsocial] = useState<boolean>(false);
-  const [removeSocial, setremoveSocial] = useState<boolean>(true);
+  if (!user && !userSession){
+   return  router.push('/sign-up')
+  } ;
 
 
   const handleShowprofile = () => {
@@ -202,7 +201,7 @@ export default function Home() {
                       <input
                         id="first-name"
                         type="text"
-                        className=" lg:w-[432px] sm:w-[70%] w-full  px-3 py-2 border focus:outline-none m-0 border-[#D9D9D9] rounded-md font-instrument-sans text-[16px] text-[#333333]"
+                        className=" input-page lg:w-[432px] sm:w-[70%] w-full  px-3 py-2 border focus:outline-none m-0 border-[#D9D9D9] rounded-md font-instrument-sans text-[16px] text-[#333333]"
                         placeholder="e.g John"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -220,7 +219,7 @@ export default function Home() {
                       <input
                         id="last-name"
                         type="text"
-                        className="lg:w-[432px] sm:w-[70%] w-full  px-3 py-2 border focus:outline-none border-gray-300 rounded-md font-instrument-sans text-[16px] text-[#333333]"
+                        className="input-page lg:w-[432px] sm:w-[70%] w-full  px-3 py-2 border focus:outline-none border-gray-300 rounded-md font-instrument-sans text-[16px] text-[#333333]"
                         placeholder="e.g. Appleseed"
                         value={Lname}
                         onChange={(e) => setLName(e.target.value)}
@@ -238,7 +237,7 @@ export default function Home() {
                       <input
                         id="email"
                         type="email"
-                        className="lg:w-[432px] sm:w-[70%] m-0 w-full px-3 py-2 border focus:outline-none border-gray-300 rounded-md font-instrument-sans text-[16px] text-[#333333]"
+                        className="input-page lg:w-[432px] sm:w-[70%] m-0 w-full px-3 py-2 border focus:outline-none border-gray-300 rounded-md font-instrument-sans text-[16px] text-[#333333]"
                         placeholder="e.g example@example.com"
                         value={emailad}
                         onChange={(e) => setEmailad(e.target.value)}

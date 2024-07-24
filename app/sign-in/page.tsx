@@ -42,7 +42,7 @@ const SignIn: React.FC = () => {
     }
 
     try {
-      const res = await signInWithEmailAndPassword(email, password);
+      const res:any = await signInWithEmailAndPassword(email, password);
 
      if (res.user) {
         // Successful sign-in, reset input fields
