@@ -78,7 +78,7 @@ const SignUp: React.FC = () => {
           style={{ marginBottom: "51px" }}
         >
           <img src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
-          <h2 className="text-2xl font-bold text-[#333333]">devlinks</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#333333]">devlinks</h2>
         </div>
 
         <form
