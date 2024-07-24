@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase/config";
 import { useRouter } from "next/navigation";
@@ -10,6 +11,7 @@ import { HiOutlinePhoto } from "react-icons/hi2";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import SocialMediaForm from "../components/SocialMediaForm";
 import { StateContext } from "../context/state";
+
 
 
 
@@ -74,7 +76,7 @@ export default function Home() {
       <nav className="w-full max-w-[1440px] h-[126px] p-[24px] flex items-center justify-between bg-gray-100">
         <div className="w-full max-w-[1392px] h-[78px] pl-[24px] pr-[16px] pt-[16px] pb-[16px] flex items-center justify-between gap-[8px] bg-white rounded-[12px]">
           <div className="flex items-center">
-            <img src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
+            <Image src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
             <h2 className="text-2xl font-bold text-[#333333] sm:block hidden">
               devlinks
             </h2>
@@ -295,11 +297,11 @@ export default function Home() {
                 )} 
                 {removeSocial &&(
                   <div className="w-full h-[469px] p-[20px] pt-0 gap-[12px] rounded-[12px] bg-[#FAFAFA] flex flex-col items-center justify-center">
-                  <img
+                  <Image
                     src="./Group.svg"
                     alt=""
-                    width="249.53px"
-                    height="160px"
+                    width={249.53}
+                    height={160}
                   />
 
                   <p className="font-instrument-sans  text-[32px] font-bold leading-[48px] text-center text-[#333333]">

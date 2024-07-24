@@ -4,7 +4,8 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/config";
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
-import './sign-up.css'
+import './sign-up.css';
+import Image from "next/image";
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -77,7 +78,7 @@ const SignUp: React.FC = () => {
           className="flex items-center justify-start sm:justify-center"
           style={{ marginBottom: "51px" }}
         >
-          <img src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
+          <Image src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
           <h2 className="text-3xl md:text-4xl font-bold text-[#333333]">devlinks</h2>
         </div>
 
@@ -121,7 +122,7 @@ const SignUp: React.FC = () => {
                   placeholder="ben@example.com"
                   required
                 />
-                {emailError  && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500"> Can't be empty</p>}
+                {emailError  && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500"> Can&apos;t be empty</p>}
               </div>
             </div>
 

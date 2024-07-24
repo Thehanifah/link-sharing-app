@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import Link from 'next/link';
 import './sign-in.css'
+import Image from 'next/image';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -60,7 +61,7 @@ const SignIn: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-[#FFF] sm:bg-[#FAFAFA] p-[32px]">
     <div className=" w-[476px] h-[573px] pt-0 max-w-md">
     <div className="flex items-center justify-start sm:justify-center " style={{ marginBottom: '51px' }}>
-     <img 
+     <Image 
         src="/logo.svg" 
         alt="logo"  
       className="w-10 h-10 mr-2"  
@@ -107,7 +108,7 @@ Email
   placeholder="Email"
   required
 />
-{emailError && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500"> Can't be empty</p>}
+{emailError && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500"> Can&apos;t be empty</p>}
 </div>
 </div >
 
