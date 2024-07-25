@@ -131,7 +131,7 @@ Password
   placeholder="Enter your password"
   required
 />
-{passwordError && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500"> Please check again</p>}
+{passwordError && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-nowrap  text-red-500"> Please check again</p>}
 </div>
 </div>
  <div className="flex items-center justify-between w-full">

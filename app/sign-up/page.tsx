@@ -155,7 +155,7 @@ const SignUp: React.FC = () => {
                   required
                 />
                 {error && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500">Please choose a password</p>}
-                {passwordMismatch || passwordLengthError && <p className="font-instrument-sans text-[12px] w-[162px] font-normal leading-[18px] text-red-500">Please check again</p>}
+                {passwordMismatch || passwordLengthError && <p className="font-instrument-sans text-[12px] text-nowrap font-normal leading-[18px] text-red-500">Please check again</p>}
               </div>
             </div>
 
