@@ -114,7 +114,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "context/state.jsx", "styles/Appstyles.tsx"  ],
   "exclude": [
     "node_modules"
   ]

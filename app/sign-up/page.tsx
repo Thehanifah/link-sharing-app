@@ -78,7 +78,7 @@ const SignUp: React.FC = () => {
           className="flex items-center justify-start sm:justify-center"
           style={{ marginBottom: "51px" }}
         >
-          <Image src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
+          <Image src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" width={27} height={27}/>
           <h2 className="text-3xl md:text-4xl font-bold text-[#333333]">devlinks</h2>
         </div>
 

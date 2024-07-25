@@ -11,6 +11,9 @@ import { HiOutlinePhoto } from "react-icons/hi2";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import SocialMediaForm from "../components/SocialMediaForm";
 import { StateContext } from "../context/state";
+import DisplaySelectedPlatforms from "../components/DisplaySelectedPlatforms";
+import AddLinkButton from "../components/AddLinkButton"
+
 
 
 
@@ -19,11 +22,12 @@ export default function Home() {
   const [user] = useAuthState(auth);
   const router = useRouter();
   const [userSession, setUserSession] = useState(null);
-  const {name, setName, Lname, setLName, emailad, setEmailad} = useContext(StateContext)
+  const {name, setName, Lname, setLName, emailad, setEmailad, selectedPlatform, setSelectedPlatform} = useContext(StateContext)
   const [showProfile, setShowprofile] = useState<boolean>(true);
   const [showLinks, setShowlinks] = useState<boolean>(false);
-  const [showSocial, setShowsocial] = useState<boolean>(false);
-  const [removeSocial, setremoveSocial] = useState<boolean>(true)
+  
+
+  
 
   const {
     name: contextName, 
@@ -59,24 +63,14 @@ export default function Home() {
     setShowlinks(true);
   };
 
-  const handleShowsocial = () => {
-    setShowsocial(true);
-    setremoveSocial(false);
-  };
-
-  const handleremoveSocial = () => {
-    setShowsocial(false);
-    setremoveSocial(true);
-  };
-
-  
+    
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between  bg-gray-100">
+    <main className="flex min-h-screen flex-col items-center bg-gray-100">
       <nav className="w-full max-w-[1440px] h-[126px] p-[24px] flex items-center justify-between bg-gray-100">
         <div className="w-full max-w-[1392px] h-[78px] pl-[24px] pr-[16px] pt-[16px] pb-[16px] flex items-center justify-between gap-[8px] bg-white rounded-[12px]">
           <div className="flex items-center">
-            <Image src="/logo.svg" alt="logo" className="w-10 h-10 mr-2" />
+            <Image src="/logo.svg" alt="logo" width={27} height={27} className="w-10 h-10 mr-2" />
             <h2 className="text-2xl font-bold text-[#333333] sm:block hidden">
               devlinks
             </h2>
@@ -124,7 +118,7 @@ export default function Home() {
           </div>
 
           <div className="flex items-center">
-            <button className="w-auto h-auto px-[27px] hover:bg-[#EFEBFF]  py-[11px] gap-[8px] rounded-[8px] font-instrument-sans text-[16px] font-semibold leading-[24px] text-left bg-none border border-[#633CFF] text-[#633CFF]">
+            <button className="w-auto h-auto sm:px-[27px] px-4 hover:bg-[#EFEBFF]  py-[11px] gap-[8px] rounded-[8px] font-instrument-sans text-[16px] font-semibold leading-[24px] text-left bg-none border border-[#633CFF] text-[#633CFF]">
               <MdOutlineRemoveRedEye className="font-extrabold sm:hidden block text-[24px]" />{" "}
               <span className="sm:block hidden">Preview</span>
             </button>
@@ -132,7 +126,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="flex w-full max-w-[1440px] h-[858px] p-[24px] gap-[24px] mx-auto pt-0">
+      <div className="flex w-full max-w-[1440px] h-[858px] p-[24px] gap-[24px] mx-auto pt-0 ">
       <div className="relative w-[40%] h-[834px] pt-[24px] rounded-[12px] bg-white hidden md:block">
        <div className="mock-up absolute inset-0 flex items-center justify-center">
       <svg width="308" height="632" viewBox="0 0 308 632" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -142,14 +136,29 @@ export default function Home() {
         </div>
        <div className="absolute inset-0 flex flex-col items-center justify-center w-full">
         <div className="tops mb-4 flex flex-col items-center justify-center ">
-           <div className="h-[96px] w-[96px] rounded-full bg-[#EEEEEE] mb-4">
-           </div>
-           <div className="w-[160px] h-[16px] rounded-[12px] bg-[#EEEEEE] mb-2 Name"></div>
-           <p className="font-instrument-sans text-lg font-semibold leading-[27px] text-center text-[#333333]">{contextName}{contextLName}</p>
-           <div className="w-[72px] h-[8px] rounded-[12px] bg-[#EEEEEE] "></div>
-           <p className="font-instrument-sans text-sm font-normal leading-[21px] text-center text-[#737373]" >{contextemailad}</p></div>
+        {!contextName && !contextLName ? (
+    <div className="h-[96px] w-[96px] rounded-full bg-[#EEEEEE] mb-4"></div>
+  ) : ""}
+  
+  {!contextName && !contextLName ? (
+    <div className="w-[160px] h-[16px] rounded-[12px] bg-[#EEEEEE] mb-2 placeholder"></div>
+  ) : (
+    <p className="font-instrument-sans text-lg font-semibold leading-[27px] text-center name text-[#333333]">
+      {contextName} {contextLName}
+    </p>
+  )}
+  
+  {!contextemailad ? (
+    <div className="w-[72px] h-[8px] rounded-[12px] bg-[#EEEEEE] placeholder"></div>
+  ) : (
+    <p className="font-instrument-sans text-sm font-normal leading-[21px] text-center text-[#737373] name">
+      {contextemailad}
+    </p>
+  )}</div>
+           
 
-        <div className="tops h-[300px] flex flex-col items-center justify-items-stretch ">
+        <div className="tops w-[40%] h-[300px] flex flex-col items-center gap-6 mt-6">
+        <DisplaySelectedPlatforms/>
         <div className="w-full h-[44px] rounded-[12px] bg-[#EEEEEE] "></div>
         <div className="w-full h-[44px] rounded-[12px] bg-[#EEEEEE] "></div>
         <div className="w-full h-[44px] rounded-[12px] bg-[#EEEEEE] "></div>
@@ -158,8 +167,7 @@ export default function Home() {
         </div>
        </div>
        </div>
-
-
+       
         {showProfile && (
           <div className=" md:w-[60%] w-[100%] sm:h-[834px] h-[fit-content] rounded-[12px] bg-white ">
             <div className="w-full h-[auto] sm:h-[739px] p-[40px] gap-[40px] flex flex-col ">
@@ -185,7 +193,7 @@ export default function Home() {
                         +Upload Photo
                       </span>
                     </div>
-                    <p className="font-instrument-sans text-[12px] md:w-[40%]  font-normal w-full lg:w-[215px]leading-[18px] text-[#737373]  text-left">
+                    <p className="font-instrument-sans text-[12px] md:w-[40%]  font-normal w-full lg:w-[215px] leading-[18px] text-[#737373]  text-left">
                       Image must be below 1024x1024px. Use PNG or JPG format.
                     </p>
                   </div>
@@ -270,55 +278,14 @@ export default function Home() {
                   with the world!
                 </p>
               </div>
-
-              <div className="w-full h-[539px] flex flex-col justify-between  ">
-                <button 
-                onClick={handleShowsocial}
-                className="w-full h-auto px-[27px] py-[11px] gap-[8px] rounded-[8px] font-instrument-sans text-[16px] font-semibold leading-[24px] hover:bg-[#EFEBFF]  bg-none border border-[#633CFF] text-[#633CFF]">
-                  +Add new link
-                </button>
-
-
-                {showSocial &&(
-                     <div className="w-full h-[228px] bg-[#FAFAFA] rounded-[12px] p-5 ">
-                     <div className="w-full flex justify-between ">
-                       <p className="font-instrument-sans text-[16px] font-bold leading-[24px] text-left text-[#888888]">
-                          = Link #1
-                         </p>
-                         <button 
-                         onClick={handleremoveSocial}
-                         className="font-instrument-sans text-[16px] font-normal leading-[24px] text-right text-[#737373] hover:text-[#633CFF]">
-                          Remove
-                      </button>
-                     </div>
-                     <SocialMediaForm/>
-                   </div>
-                   
-                )} 
-                {removeSocial &&(
-                  <div className="w-full h-[469px] p-[20px] pt-0 gap-[12px] rounded-[12px] bg-[#FAFAFA] flex flex-col items-center justify-center">
-                  <Image
-                    src="./Group.svg"
-                    alt=""
-                    width={249.53}
-                    height={160}
-                  />
-
-                  <p className="font-instrument-sans  text-[32px] font-bold leading-[48px] text-center text-[#333333]">
-                    Let’s get you started
-                  </p>
-                  <p className="font-instrument-sans  text-[16px] font-normal leading-[24px] text-center text-[#737373] max-w-[488px]">
-                    Use the “Add new link” button to get started. Once you have
-                    more than one link, you can reorder and edit them. We’re
-                    here to help you share your profiles with everyone!
-                  </p>
-                </div>
-                )}
-              </div>
+              <AddLinkButton/>
+                              
+              <SocialMediaForm/>
+              
             </div>
 
             <div className="w-full h-[95px] p-[40px] flex flex-col justify-center items-end border border-t-gray">
-              <button className="sm:w-[91px] w-full h-[46px] p-[11px] text-white px-[27px] rounded-[8px] opacity-[0.25] bg-[#633CFF] ">
+              <button className="sm:w-[91px] w-full h-[46px] p-[11px] text-white px-[27px] rounded-[8px]  bg-[#633CFF] ">
                 Save
               </button>
             </div>

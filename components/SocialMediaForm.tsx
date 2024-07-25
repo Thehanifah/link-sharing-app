@@ -1,67 +1,92 @@
 'use client'
 
-import React, { useState } from 'react';
-import { FaLink } from 'react-icons/fa';
+import React from 'react';
+import { FaLink} from 'react-icons/fa';
+import { useContext } from 'react';
+import { StateContext } from "../context/state";
+import Getstarted from './Getstarted';
+import { socialMediaStyles } from '../styles/Appstyles';
+import CustomSelect from './CustomSelect'
 
-const socialMediaPlatforms = [
-  'Facebook',
-  'Twitter',
-  'Instagram',
-  'LinkedIn',
-  'YouTube',
-];
+
+
+const socialMediaPlatforms = Object.keys(socialMediaStyles);
+
+const isValidUrl = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
 const SocialMediaForm = () => {
-  const [selectedPlatform, setSelectedPlatform] = useState('');
-  const [link, setLink] = useState('');
+  const { socialCards, updateSocialCard, removeSocialCard } = useContext(StateContext);
 
+  if (socialCards.length === 0) {
+    return <Getstarted/>;
+  }
+ 
   return (
-    <form className="w-full  space-y-4 bg-[#FAFAFA] rounded-lg ">
-      <div>
-        <label className="font-instrument-sans text-[12px] font-normal leading-[18px] text-left text-[#333333]" htmlFor="platform">
-          Platform
-        </label>
-        <select
-          id="platform"
-          className=" font-instrument-sans text-[16px] font-normal leading-[24px] text-left text-[#333333] w-full pt-3 pb-3 pl-4 pr-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-          value={selectedPlatform}
-          onChange={(e) => setSelectedPlatform(e.target.value)}
-        >
-          <option value="" disabled>
-            Select a platform
-          </option>
-          {socialMediaPlatforms.map((platform) => (
-            <option key={platform} value={platform}>
-              {platform}
-            </option>
-          ))}
-        </select>
-      </div>
+    <div className="w-full h-[539px] flex flex-col overflow-y-auto overflow-x-hidden">
+      {socialCards.map((card: any, index: number) => {
+        const platformStyle = socialMediaStyles[card.platform] || {};
+        const PlatformIcon = platformStyle.icon;
 
-      <div>
-        <label className="font-instrument-sans text-[12px] font-normal leading-[18px] text-left text-[#333333]" htmlFor="link">
-          Link
-        </label>
-        <div className="relative">
-          <FaLink className="absolute top-1/2 transform -translate-y-1/2 left-5 text-gray-400" />
-          <input
-            id="link"
-            type="text"
-            className="font-instrument-sans text-[16px] font-normal leading-[24px] text-left text-[#333333]  w-full pt-3 pb-3 pl-12 pr-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-            placeholder="https://example.com"
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
-          />
-        </div>
-      </div>
-
-      {/* <button
-        type="submit"
-        className="w-full p-2 bg-indigo-500 text-white font-semibold rounded-md hover:bg-indigo-600"
-      >
-        Submit
-      </button> */}
-    </form>
+        return (
+          <div 
+            key={card.id} 
+            className="relative w-full rounded-lg mb-4 p-4 border border-gray-200 bg-[#FAFAFA]"
+          >
+            <div className="absolute top-2 left-4  flex flex-col items-center justify-center">
+              <span className="font-instrument-sans text-[16px] font-bold leading-[24px] text-left text-[#737373]"> = Link #{index + 1}</span>
+            </div>
+            <button
+              onClick={() => removeSocialCard(card.id)}
+              className="absolute top-2 right-4 text-gray-500 hover:text-[#633CFF]"
+            >
+              Remove
+            </button>
+            <form className="mt-6 space-y-4">
+              <div>
+                <label className="font-instrument-sans text-[12px] font-normal leading-[18px] text-left text-[#333333]" htmlFor={`platform-${card.id}`}>
+                  Platform
+                </label>
+                <CustomSelect
+                  id={`platform-${card.id}`}
+                  value={card.platform}
+                  onChange={(value:string) => updateSocialCard(card.id, value, card.link)}
+                  socialMediaPlatforms={socialMediaPlatforms}
+                />
+                
+              </div>
+              <div>
+                <label className="font-instrument-sans text-[12px] font-normal leading-[18px] text-left text-[#333333]" htmlFor={`link-${card.id}`}>
+                  Link
+                </label>
+                <div className="relative">
+                  <FaLink className="absolute top-1/2 transform -translate-y-1/2 left-3 text-gray-400" />
+                  <input
+                    id={`link-${card.id}`}
+                    type="text"
+                    className={`font-instrument-sans text-[16px] font-normal focus:shadow-custom-focus leading-[24px] text-left text-[#333333] w-full pt-3 pb-3 pl-10 pr-4 border border-gray-300 rounded-md focus:outline-none focus:border-[#633CFF] ${
+                      card.link && !isValidUrl(card.link) ? 'border-red-500' : 'border-gray-300'
+                    }`}
+                    placeholder="https://example.com"
+                    value={card.link}
+                    onChange={(e) => updateSocialCard(card.id, card.platform, e.target.value)}
+                  />
+                </div>
+                {card.link && !isValidUrl(card.link) && (
+                  <span className="text-red-500 text-sm mt-1">Please enter a valid URL</span>
+                )}
+              </div>
+            </form>
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
