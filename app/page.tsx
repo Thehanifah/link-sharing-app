@@ -1,18 +1,19 @@
 "use client";
 import Image from "next/image";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./firebase/config";
+import { auth, db } from "./firebase/config";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useContext, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FaLink } from "react-icons/fa6";
 import "./page.css";
-import { HiOutlinePhoto } from "react-icons/hi2";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import SocialMediaForm from "../components/SocialMediaForm";
 import { StateContext } from "../context/state";
 import DisplaySelectedPlatforms from "../components/DisplaySelectedPlatforms";
 import AddLinkButton from "../components/AddLinkButton"
+import AddProfile from "../components/AddProfile";
+
 
 
 
@@ -25,6 +26,7 @@ export default function Home() {
   const {name, setName, Lname, setLName, emailad, setEmailad, selectedPlatform, setSelectedPlatform} = useContext(StateContext)
   const [showProfile, setShowprofile] = useState<boolean>(true);
   const [showLinks, setShowlinks] = useState<boolean>(false);
+  
   
 
   
@@ -51,6 +53,8 @@ export default function Home() {
   if (!user && !userSession){
    return  router.push('/sign-up')
   } ;
+
+  
 
 
   const handleShowprofile = () => {
@@ -170,100 +174,7 @@ export default function Home() {
        
         {showProfile && (
           <div className=" md:w-[60%] w-[100%] sm:h-[834px] h-[fit-content] rounded-[12px] bg-white ">
-            <div className="w-full h-[auto] sm:h-[739px] p-[40px] gap-[40px] flex flex-col ">
-              <div>
-                <p className="text-[#333333] font-instrument-sans text-[24px]  md:text-[32px] font-bold leading-[48px] text-left">
-                  Profile details
-                </p>
-                <p className="text-[#737373] font-instrument-sans  text-[16px] font-normal leading-[24px] text-left">
-                  Add your details to create a personal touch to your profile.
-                </p>
-              </div>
-
-              <div className="w-full h-[auto] flex flex-col justify-between gap-[24px] ">
-                <div className="w-full h-auto p-[20px]  rounded-[12px] bg-[#FAFAFA] flex flex-col sm:flex-row justify-between items-start md:items-center  ">
-                  <p className="text-[#888888] font-[Instrument Sans] text-[16px] font-normal leading-[24px] text-left mb-3 md:mb-0">
-                    Profile picture
-                  </p>
-
-                  <div className="md:w-[432px] w-[70%] flex flex-col sm:flex-row  justify-between items-start lg:w[60%]  md:items-center">
-                    <div className="w-[193px] h-[193px] rounded-[12px] bg-[#EFEBFF] text-[#633CFF] mb-3 md:mb-0 flex flex-col justify-center items-center">
-                      <HiOutlinePhoto className="text-[32px]" />
-                      <span className="font-instrument-sans text-[16px] font-semibold leading-[24px] ">
-                        +Upload Photo
-                      </span>
-                    </div>
-                    <p className="font-instrument-sans text-[12px] md:w-[40%]  font-normal w-full lg:w-[215px] leading-[18px] text-[#737373]  text-left">
-                      Image must be below 1024x1024px. Use PNG or JPG format.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="w-full h-auto p-[20px]  gap-[12px] rounded-[12px] bg-[#FAFAFA]">
-                  <form className="space-y-4">
-                    <div className="flex sm:items-center items-start  justify-between flex-col sm:flex-row">
-                      <label
-                        htmlFor="first-name"
-                        className="  font-instrument-sans text-[16px] font-medium text-[#333333]"
-                      >
-                        First Name
-                      </label>
-                      <input
-                        id="first-name"
-                        type="text"
-                        className=" input-page lg:w-[432px] sm:w-[70%] w-full  px-3 py-2 border focus:outline-none m-0 border-[#D9D9D9] rounded-md font-instrument-sans text-[16px] text-[#333333]"
-                        placeholder="e.g John"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-
-                    <div className="flex sm:items-center items-start justify-between  flex-col sm:flex-row  ">
-                      <label
-                        htmlFor="last-name"
-                        className="  font-instrument-sans text-[16px] font-medium text-[#333333]"
-                        
-                      >
-                        Last Name
-                      </label>
-                      <input
-                        id="last-name"
-                        type="text"
-                        className="input-page lg:w-[432px] sm:w-[70%] w-full  px-3 py-2 border focus:outline-none border-gray-300 rounded-md font-instrument-sans text-[16px] text-[#333333]"
-                        placeholder="e.g. Appleseed"
-                        value={Lname}
-                        onChange={(e) => setLName(e.target.value)}
-                        
-                      />
-                    </div>
-
-                    <div className="flex sm:items-center items-start justify-between  flex-col sm:flex-row ">
-                      <label
-                        htmlFor="email"
-                        className="  font-instrument-sans text-[16px] font-medium text-[#333333]"
-                      >
-                        Email
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        className="input-page lg:w-[432px] sm:w-[70%] m-0 w-full px-3 py-2 border focus:outline-none border-gray-300 rounded-md font-instrument-sans text-[16px] text-[#333333]"
-                        placeholder="e.g example@example.com"
-                        value={emailad}
-                        onChange={(e) => setEmailad(e.target.value)}
-                      />
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <div className="w-full h-[95px] p-[40px] flex flex-col justify-center items-end border border-t-gray">
-              <button className="sm:w-[91px]  w-[100%] h-[46px] p-[11px] text-white px-[27px] rounded-[8px]  bg-[#633CFF] gap-[8px]">
-                Save
-              </button>
-            </div>
-          </div>
+        <AddProfile/>  </div>
         )}
 
         {showLinks && (

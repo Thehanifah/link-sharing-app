@@ -24,7 +24,7 @@ const CustomSelect = ({ id, value, onChange, socialMediaPlatforms }) => {
   return (
     <div className="relative" ref={dropdownRef}>
       <div
-        className="selected font-instrument-sans text-[16px] focus:shadow-custom-focus bg-white font-normal leading-[24px] text-left text-[#333333] w-full pt-3 pb-3 pl-10 pr-4 border border-gray-300 rounded-md cursor-pointer"
+        className="selected font-instrument-sans text-[16px] hover:text-[#633CFF] focus:shadow-custom-focus bg-white font-normal leading-[24px] text-left text-[#333333] w-full pt-3 pb-3 pl-10 pr-4 border border-gray-300 rounded-md cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
         {PlatformIcon && (
